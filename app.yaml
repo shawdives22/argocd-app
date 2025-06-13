@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/shawdives22/argocd-app.git
     targetRevision: main
-    path: chart
+    path: .
 
   destination:
     server: https://kubernetes.default.svc  # This means the current cluster
