@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-app-staging
+  name: my-app-production
   namespace: argocd  # Argo CD is usually installed in the 'argocd' namespace
 spec:
   project: default
@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/shawdives22/argocd-app.git
     targetRevision: main
-    path: chart
+    path: .
     helm:
       valueFiles:
         - ../overlays/production/values.yaml
