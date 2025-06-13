@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app-staging
+  namespace: argocd  # Argo CD is usually installed in the 'argocd' namespace
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/shawdives22/argocd-app.git
+    targetRevision: main
+    path: chart
+    helm:
+      valueFiles:
+	- ../overlays/staging/values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc  # This means the current cluster
+    namespace: staging
+
+  syncPolicy:
+    automated:
+      prune: true         # Remove resources that are no longer tracked in Git
+      selfHeal: true      # Revert out-of-band changes
+    syncOptions:
+      - CreateNamespace=true  # Automatically create the namespace if it doesn't exist
+
